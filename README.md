@@ -1,11 +1,12 @@
 # College Basketball
 
-My project models data for someone into college basketball. Includes teams, players, winning stats, and areans games are played in.
-![Database Schema](schema.png)
+My project models data for college basketball teams. Includes team information, player rosters, arenas, and win records for the 2025-2026 season.
+
+![Schema Diagram](schema.png)
 
 ## Query I Thought It Did Well On
 
-**Question**: asdkjfh
+**Question**: What are the names of all players on the BYU Cougars?
 
 **GPT SQL Response**:
 ```sql
@@ -16,33 +17,44 @@ My project models data for someone into college basketball. Includes teams, play
 
 ## Question That It Tripped Up On
 
-asdkjfasdf
-
-**Question**: Wasdkjfh
+**Question**: 
 
 **GPT SQL Response**:
 ```sql
 
 ```
 
-**SQL Result**: `[(2, 0)]`
+**SQL Result**: ``
 
-**Friendly Response**: asdkfjhasf
+**Friendly Response**: 
 
-aksdjfhasldkfjasdf
+ksjdfhs
+
+askdjf
 
 ## Multi-Shot Attempt
 
-kjsafh
+I provided an example of a successful query and asked the same question again with few-shot prompting.
 
-**Question (multi-shot)**: asldkfj
+**Question (multi-shot)**: 
 
-**SQL Result**: `[(2, 'Bob Jones')]`
+**SQL Result**: ``
 
-**Friendly Response**: sdfkjhasdf
-
-askdfjhasdf
-
+**Friendly Response**: 
+zdskjfhsd
 ## Conclusion
 
-asdfkjhasdfliasdfmnasdf
+For college basketball data queries, GPT-4 does very well at generating SQL for simple to moderately complex joins. The key finding is that result interpretation and friendly response generation improves significantly with few-shot examples. 
+
+Main strengths:
+- Simple SELECT queries work reliably
+- JOINs across multiple tables are handled well
+- WHERE clauses and filtering work correctly
+
+Main weaknesses:
+- Without examples, friendly responses can be generic or incomplete
+- Result interpretation requires better context
+- Zero-shot prompting often misses relevant context
+
+**Prompting strategies tested**: Zero-shot, Few-shot/Multi-shot
+**Best approach found**: Few-shot examples improve both SQL quality and result interpretation
