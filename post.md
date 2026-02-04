@@ -10,11 +10,15 @@ My project models data for college basketball teams. Includes team information, 
 
 **GPT SQL Response**:
 
-```sql
+```
+SELECT players.player_name
+FROM players
+JOIN teams ON players.team_id = teams.team_id
+WHERE teams.name = 'BYU Cougars';
 
 ```
 
-**Friendly Response**:
+**Friendly Response**: Sure! The BYU Cougars players are Jaxson Robinson, Dallin Hall, Trevin Knell, Fousseyni Traore, and Aly Khalifa.
 
 ## Question That It Tripped Up On
 
@@ -41,12 +45,34 @@ This one is an interesting one because it had no context for if we meant team or
 
 I provided an example of a successful query and asked the same question again with few-shot prompting.
 
-**Question (multi-shot)**:
+**Question (multi-shot)**: What are the names of all players on the BYU Cougars?
 
-**SQL Result**: ``
+**SQL Result**:
 
-**Friendly Response**:
-zdskjfhsd
+```
+SELECT p.player_name
+FROM players p
+JOIN teams t ON p.team_id = t.team_id
+WHERE t.name = 'BYU Cougars';
+```
+
+**Friendly Response**: Jaxson Robinson, Dallin Hall, Trevin Knell, Fousseyni Traore, Aly Khalifa.
+
+**Question (multi-shot)**: Who is the fan favorite?
+
+**SQL Result**:
+
+```
+SELECT t.name, SUM(w.win_count) AS total_wins
+FROM teams t
+LEFT JOIN wins w ON t.team_id = w.team_id
+GROUP BY t.team_id
+ORDER BY total_wins DESC;
+```
+
+**Friendly Response**: The fan favorite is the Purdue Boilermakers.
+
+It was interesting this time that when it had some more context given, it chose a team instead of a player. The context given was the table of the teams and their wins so that makes more sense
 
 ## Conclusion
 
