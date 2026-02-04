@@ -11,41 +11,35 @@ My project models data for college basketball teams. Includes team information, 
 **GPT SQL Response**:
 
 ```sql
-SELECT p.player_name
-FROM players p
-JOIN teams t ON p.team_id = t.team_id
-WHERE t.name = 'BYU Cougars';
-```
-
-**Friendly Response**: Jaxson Robinson, Dallin Hall, Trevin Knell, Fousseyni Traore, Aly Khalifa
-
-## Question That It Tripped Up On
-
-**Question**:
-
-**GPT SQL Response**:
-
-```sql
 
 ```
-
-**SQL Result**: ``
 
 **Friendly Response**:
 
-ksjdfhs
+## Question That It Tripped Up On
 
-askdjf
+**Question**: Who is the fan favorite?
+
+**GPT SQL Response**:
+
+```
+SELECT players.player_name, COUNT(wins.win_id) AS win_count
+FROM players
+JOIN wins ON players.team_id = wins.team_id
+GROUP BY players.player_id
+ORDER BY win_count DESC
+LIMIT 1;
+```
+
+**SQL Result**: `[('Jaxson Robinson', 1)]`
+
+**Friendly Response**: Jaxson Robinson is the fan favorite.
+
+This one is an interesting one because it had no context for if we meant team or player when it came to fan favorite. So what it did is it chose a random player from the winning team, which is clever but not really what the user probably intended.
 
 ## Multi-Shot Attempt
 
 I provided an example of a successful query and asked the same question again with few-shot prompting.
-
-**Question (multi-shot)**:
-
-**SQL Result**: ``
-
-**Friendly Response**:
 
 **Question (multi-shot)**:
 
