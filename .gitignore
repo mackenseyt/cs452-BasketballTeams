@@ -1,2 +1,5 @@
 venv
 config.json
+response_single*
+response_zero*
+attempt*

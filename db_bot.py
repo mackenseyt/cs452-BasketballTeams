@@ -93,43 +93,43 @@ for strategy in strategies:
     questionResults = []
     print("########################################################################")
     print(f"Running strategy: {strategy}")
-    for question in questions:
+    # for question in questions:
+    question = input("What would you like to know about the database?\n")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("Question:")
+    print(question)
+    error = "None"
+    sql_response = "None"
+    query_raw_response = "None"
+    friendly_response = "None"
+    
+    try:
+        getSqlFromQuestionEngineeredPrompt = strategies[strategy] + " " + question
+        sqlSyntaxResponse = getChatGptResponse(getSqlFromQuestionEngineeredPrompt)
+        sqlSyntaxResponse = sanitizeForJustSql(sqlSyntaxResponse)
+        sql_response = sqlSyntaxResponse
+        print("SQL Syntax Response:")
+        print(sqlSyntaxResponse)
+        queryRawResponse = str(runSql(sqlSyntaxResponse))
+        query_raw_response = queryRawResponse
+        print("Query Raw Response:")
+        print(queryRawResponse)
+        friendlyResultsPrompt = "I asked a question \"" + question + "\" and the response was \"" + queryRawResponse + "\" Please, just give a concise response in a more friendly way? Please do not give any other suggestions or chatter."
+        friendlyResponse = getChatGptResponse(friendlyResultsPrompt)
+        friendly_response = friendlyResponse
+        print("Friendly Response:")
+        print(friendlyResponse)
+    except Exception as err:
+        error = str(err)
+        print(err)
 
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        print("Question:")
-        print(question)
-        error = "None"
-        sql_response = "None"
-        query_raw_response = "None"
-        friendly_response = "None"
-        
-        try:
-            getSqlFromQuestionEngineeredPrompt = strategies[strategy] + " " + question
-            sqlSyntaxResponse = getChatGptResponse(getSqlFromQuestionEngineeredPrompt)
-            sqlSyntaxResponse = sanitizeForJustSql(sqlSyntaxResponse)
-            sql_response = sqlSyntaxResponse
-            print("SQL Syntax Response:")
-            print(sqlSyntaxResponse)
-            queryRawResponse = str(runSql(sqlSyntaxResponse))
-            query_raw_response = queryRawResponse
-            print("Query Raw Response:")
-            print(queryRawResponse)
-            friendlyResultsPrompt = "I asked a question \"" + question + "\" and the response was \"" + queryRawResponse + "\" Please, just give a concise response in a more friendly way? Please do not give any other suggestions or chatter."
-            friendlyResponse = getChatGptResponse(friendlyResultsPrompt)
-            friendly_response = friendlyResponse
-            print("Friendly Response:")
-            print(friendlyResponse)
-        except Exception as err:
-            error = str(err)
-            print(err)
-
-        questionResults.append({
-            "question": question,
-            "sql": sql_response,
-            "queryRawResponse": query_raw_response,
-            "friendlyResponse": friendly_response,
-            "error": error
-        })
+    questionResults.append({
+        "question": question,
+        "sql": sql_response,
+        "queryRawResponse": query_raw_response,
+        "friendlyResponse": friendly_response,
+        "error": error
+    })
 
     responses["questionResults"] = questionResults
 
