@@ -11,10 +11,13 @@ My project models data for college basketball teams. Includes team information, 
 **GPT SQL Response**:
 
 ```sql
-
+SELECT p.player_name
+FROM players p
+JOIN teams t ON p.team_id = t.team_id
+WHERE t.name = 'BYU Cougars';
 ```
 
-**Friendly Response**:
+**Friendly Response**: Jaxson Robinson, Dallin Hall, Trevin Knell, Fousseyni Traore, Aly Khalifa
 
 ## Question That It Tripped Up On
 
@@ -37,6 +40,12 @@ askdjf
 ## Multi-Shot Attempt
 
 I provided an example of a successful query and asked the same question again with few-shot prompting.
+
+**Question (multi-shot)**:
+
+**SQL Result**: ``
+
+**Friendly Response**:
 
 **Question (multi-shot)**:
 
