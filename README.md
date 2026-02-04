@@ -1,11 +1,11 @@
 # Steps Taken
 
-Create Post Outline
-Create Database layout
-Populate Database
+- Create Post Outline
+- Create Database layout
+- Populate Database
 
 # To Do
 
-Create Schema
-Queries
-Lots of other stuff I dont know yet
+- Queries
+- Fix dp_bot.py right now its pretty much a copy of the example
+- finish post
